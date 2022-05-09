@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867813405861",
+    "project_id": "minhavisao",
+    "storage_bucket": "minhavisao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867813405861:android:0d3a16d7ea5dab4171094c",
+        "android_client_info": {
+          "package_name": "com.example.minhavisao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867813405861-3bvdeaqj9rmfu9klpvgj9vlsdhv21a1j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAE0MkERndO7Vl1FTOe_OUh67110wHqqbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867813405861-3bvdeaqj9rmfu9klpvgj9vlsdhv21a1j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
