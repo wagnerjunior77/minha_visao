@@ -41,6 +41,18 @@ dependencies:
   #Image Picker
   image_picker: ^0.8.5
 
+  #Image Labeling
+  #google_mlkit_image_labeling: ^0.3.0
+
+  #Google ML Vision
+  google_ml_vision: ^0.0.7
+
+
+
+  #Firebase Core
+  firebase_core: ^1.16.0
+
+
  
 
 

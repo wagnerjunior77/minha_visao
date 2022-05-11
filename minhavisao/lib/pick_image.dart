@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_ml_vision/google_ml_vision.dart';
 import 'dart:io';
 
 class Pick_image extends StatefulWidget {
@@ -12,6 +13,12 @@ class Pick_image extends StatefulWidget {
 class _PickimageState extends State<Pick_image> {
   ImagePicker imagePicker = ImagePicker();
   File? imagemSelecionada;
+
+  final ImageLabeler imageLabeler = GoogleVision.instance.imageLabeler(
+    ImageLabelerOptions(confidenceThreshold: 0.9),
+  );
+
+  static var result;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +32,14 @@ class _PickimageState extends State<Pick_image> {
             imagemSelecionada == null
                 ? Container()
                 : Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(100),
                     child: Image.file(imagemSelecionada!)),
+            Container(
+                child: Center(
+              child: result == null
+                  ? Text("Nenhum Resultado")
+                  : Text(result, style: TextStyle(fontWeight: FontWeight.bold)),
+            )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -61,6 +74,7 @@ class _PickimageState extends State<Pick_image> {
     if (imagemTemporaria != null) {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
+        processImageLabels();
       });
     }
   }
@@ -73,6 +87,24 @@ class _PickimageState extends State<Pick_image> {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
       });
+    }
+  }
+
+  processImageLabels() async {
+    GoogleVisionImage myImage = GoogleVisionImage.fromFile(imagemSelecionada!);
+    ImageLabeler labeler = GoogleVision.instance
+        .imageLabeler(ImageLabelerOptions(confidenceThreshold: 0.9));
+    var _imageLabels = await labeler.processImage(myImage);
+    result = "";
+    for (ImageLabel imageLabel in _imageLabels) {
+      setState(() {
+        result = result +
+            imageLabel.text +
+            ":" +
+            imageLabel.confidence.toString() +
+            "\n";
+      });
+      break;
     }
   }
 }
