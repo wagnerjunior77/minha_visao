@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pick_image.dart';
+
+import 'package:minhavisao/tela_inicial.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: Pick_image(),
+      home: const HomePage(),
     );
   }
 }

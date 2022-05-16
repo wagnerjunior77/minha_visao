@@ -2,7 +2,7 @@
     package="com.example.minhavisao">
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
    <application
-        android:label="minhavisao"
+        android:label="Minha Visão"
         android:requestLegacyExternalStorage="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

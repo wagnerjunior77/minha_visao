@@ -19,52 +19,122 @@ class _PickimageState extends State<Pick_image> {
   );
 
   static var result;
+
+  get child => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Selecionar Imagem'),
+          title: const Text('Reconhecimento de Imagem',
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: const Color.fromARGB(255, 40, 131, 122),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: Center(
+            child: SingleChildScrollView(
+                child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.center, //Center Column contents horizontally,
+          mainAxisAlignment:
+              MainAxisAlignment.center, //Center Column contents vertically,
           children: [
             imagemSelecionada == null
                 ? Container()
                 : Padding(
                     padding: const EdgeInsets.all(100),
                     child: Image.file(imagemSelecionada!)),
-            Container(
-                child: Center(
+            Center(
               child: result == null
-                  ? Text("Nenhum Resultado")
-                  : Text(result, style: TextStyle(fontWeight: FontWeight.bold)),
-            )),
+                  ? Container(
+                      alignment: Alignment.center,
+                      width: 300,
+                      height: 300,
+                      color: Colors.grey[300]!,
+                    )
+                  : Text(result,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: IconButton(
-                      color: Colors.white,
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromARGB(255, 40, 131, 122),
+                        onPrimary: Colors.grey,
+                        shadowColor: Colors.grey[400],
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                      ),
                       onPressed: () {
                         pegarImagemGaleria();
                       },
-                      icon: Icon(Icons.add_photo_alternate_outlined),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            const Icon(
+                              Icons.image,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                            const Text("Galeria",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ))
+                          ],
+                        ),
+                      ),
                     )),
-                CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: IconButton(
-                      color: Colors.white,
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color.fromARGB(255, 40, 131, 122),
+                        onPrimary: Colors.grey,
+                        shadowColor: Colors.grey[400],
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                      ),
                       onPressed: () {
                         pegarImagemCamera();
                       },
-                      icon: Icon(Icons.photo_camera_outlined),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 5),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            const Icon(
+                              Icons.camera_alt,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            const Text(
+                              "Câmera",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ),
                     )),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
-        ));
+        ))));
   }
 
   pegarImagemGaleria() async {
@@ -86,6 +156,7 @@ class _PickimageState extends State<Pick_image> {
     if (imagemTemporaria != null) {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
+        processImageLabels();
       });
     }
   }
@@ -93,7 +164,7 @@ class _PickimageState extends State<Pick_image> {
   processImageLabels() async {
     GoogleVisionImage myImage = GoogleVisionImage.fromFile(imagemSelecionada!);
     ImageLabeler labeler = GoogleVision.instance
-        .imageLabeler(ImageLabelerOptions(confidenceThreshold: 0.9));
+        .imageLabeler(const ImageLabelerOptions(confidenceThreshold: 0.9));
     var _imageLabels = await labeler.processImage(myImage);
     result = "";
     for (ImageLabel imageLabel in _imageLabels) {
