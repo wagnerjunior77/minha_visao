@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,7 +17,13 @@ class _PicktextState extends State<Pick_text> {
   XFile? imageFile;
 
   String scannedText = "";
+  speakText() async {
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(scannedText);
+  }
 
+  final FlutterTts flutterTts = FlutterTts();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,13 +146,14 @@ class _PicktextState extends State<Pick_text> {
       if (pickedImage != null) {
         textScanning = true;
         imageFile = pickedImage;
+
         setState(() {});
         getRecognisedText(pickedImage);
       }
     } catch (e) {
       textScanning = false;
       imageFile = null;
-      scannedText = "Error occured while scanning";
+      scannedText = "Um erro ocorreu durante o escaneamento";
       setState(() {});
     }
   }
@@ -162,6 +169,7 @@ class _PicktextState extends State<Pick_text> {
         scannedText = scannedText + line.text + "\n";
       }
     }
+    speakText();
     textScanning = false;
     setState(() {});
   }

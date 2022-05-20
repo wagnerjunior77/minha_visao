@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:minhavisao/pick_image.dart';
 import 'package:minhavisao/pick_text.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final FlutterTts flutterTts = FlutterTts();
+
+    speakText(String text) async {
+      await flutterTts.setLanguage("pt-BR");
+      await flutterTts.setPitch(1.0);
+      await flutterTts.speak(text);
+    }
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -72,7 +81,9 @@ class HomePage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         iconSize: 37,
-                        onPressed: () {}),
+                        onPressed: () {
+                          speakText("Identificar Objeto");
+                        }),
                     const Text(
                       "Identificar Objeto",
                       style: TextStyle(
@@ -118,7 +129,9 @@ class HomePage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         iconSize: 37,
-                        onPressed: () {}),
+                        onPressed: () {
+                          speakText("Identificar Texto");
+                        }),
                     const Text(
                       "Identificar Texto",
                       style: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:io';
 
 class Pick_image extends StatefulWidget {
@@ -13,12 +14,17 @@ class Pick_image extends StatefulWidget {
 class _PickimageState extends State<Pick_image> {
   ImagePicker imagePicker = ImagePicker();
   File? imagemSelecionada;
-
+  final FlutterTts flutterTts = FlutterTts();
   final ImageLabeler imageLabeler = GoogleVision.instance.imageLabeler(
     ImageLabelerOptions(confidenceThreshold: 0.9),
   );
 
   static var result;
+  speakText() async {
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(result);
+  }
 
   get child => null;
   @override
@@ -43,16 +49,15 @@ class _PickimageState extends State<Pick_image> {
                     padding: const EdgeInsets.all(100),
                     child: Image.file(imagemSelecionada!)),
             Center(
-              child: result == null
-                  ? Container(
-                      alignment: Alignment.center,
-                      width: 300,
-                      height: 300,
-                      color: Colors.grey[300]!,
-                    )
-                  : Text(result,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-            ),
+                child: result == null
+                    ? Container(
+                        alignment: Alignment.center,
+                        width: 300,
+                        height: 300,
+                        color: Colors.grey[300]!,
+                      )
+                    : Text(result,
+                        style: const TextStyle(fontWeight: FontWeight.bold))),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -145,6 +150,7 @@ class _PickimageState extends State<Pick_image> {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
         processImageLabels();
+        speakText();
       });
     }
   }
@@ -157,6 +163,7 @@ class _PickimageState extends State<Pick_image> {
       setState(() {
         imagemSelecionada = File(imagemTemporaria.path);
         processImageLabels();
+        speakText();
       });
     }
   }

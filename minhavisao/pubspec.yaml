@@ -47,7 +47,8 @@ dependencies:
   #Google ML Vision
   google_ml_vision: ^0.0.7
 
-
+  #Flutter_TTS
+  flutter_tts: ^3.3.3
 
   #Firebase Core
   firebase_core: ^1.16.0
