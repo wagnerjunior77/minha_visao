@@ -3,6 +3,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:translator/translator.dart';
 
 class Pick_text extends StatefulWidget {
   const Pick_text({Key? key}) : super(key: key);
@@ -17,19 +18,30 @@ class _PicktextState extends State<Pick_text> {
   XFile? imageFile;
 
   String scannedText = "";
+
   speakText() async {
     await flutterTts.setLanguage("pt-BR");
     await flutterTts.setPitch(1.0);
-    await flutterTts.speak(scannedText);
+    var translation = await translator.translate(scannedText, to: 'pt');
+    await flutterTts.speak(translation.toString());
+  }
+
+  translateScannedText() async {
+    var translation = await translator.translate(scannedText, to: 'pt');
+
+    return translation.toString();
   }
 
   final FlutterTts flutterTts = FlutterTts();
+  final translator = GoogleTranslator();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(181, 0, 0, 0),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 40, 131, 122),
+        backgroundColor: Color(0xFF107C8F),
         title: const Text("Reconhecimento de Texto",
             style: TextStyle(color: Colors.white)),
       ),
@@ -45,13 +57,15 @@ class _PicktextState extends State<Pick_text> {
                   Container(
                     width: 300,
                     height: 300,
-                    color: Colors.grey[300]!,
+                    color: Colors.grey[600]!,
                   ),
                 if (imageFile != null) Image.file(File(imageFile!.path)),
                 Container(
                   child: Text(
                     scannedText,
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(
+                        fontSize: 40,
+                        color: Color.fromARGB(255, 248, 248, 248)),
                   ),
                 ),
                 Row(
@@ -62,9 +76,9 @@ class _PicktextState extends State<Pick_text> {
                         padding: const EdgeInsets.only(top: 10),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 40, 131, 122),
-                            onPrimary: Colors.grey,
-                            shadowColor: Colors.grey[400],
+                            primary: Color(0xFF107C8F),
+                            onPrimary: Color.fromARGB(255, 0, 0, 0),
+                            shadowColor: Color.fromARGB(255, 0, 0, 0),
                             elevation: 10,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
@@ -98,9 +112,9 @@ class _PicktextState extends State<Pick_text> {
                         padding: const EdgeInsets.only(top: 10),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 40, 131, 122),
-                            onPrimary: Colors.grey,
-                            shadowColor: Colors.grey[400],
+                            primary: Color(0xFF107C8F),
+                            onPrimary: Color.fromARGB(255, 0, 0, 0),
+                            shadowColor: Color.fromARGB(255, 0, 0, 0),
                             elevation: 10,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
@@ -169,6 +183,7 @@ class _PicktextState extends State<Pick_text> {
         scannedText = scannedText + line.text + "\n";
       }
     }
+
     speakText();
     textScanning = false;
     setState(() {});

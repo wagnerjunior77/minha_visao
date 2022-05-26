@@ -29,11 +29,13 @@ class _PickimageState extends State<Pick_image> {
   get child => null;
   @override
   Widget build(BuildContext context) {
+    var white;
     return Scaffold(
+        backgroundColor: Color.fromARGB(181, 0, 0, 0),
         appBar: AppBar(
           title: const Text('Reconhecimento de Imagem',
               style: TextStyle(color: Colors.white)),
-          backgroundColor: const Color.fromARGB(255, 40, 131, 122),
+          backgroundColor: Color(0xFF107C8F),
         ),
         body: Center(
             child: SingleChildScrollView(
@@ -56,8 +58,11 @@ class _PickimageState extends State<Pick_image> {
                         height: 300,
                         color: Colors.grey[300]!,
                       )
-                    : Text(result,
-                        style: const TextStyle(fontWeight: FontWeight.bold))),
+                    : Text(
+                        result,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                      )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -66,9 +71,9 @@ class _PickimageState extends State<Pick_image> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 40, 131, 122),
-                        onPrimary: Colors.grey,
-                        shadowColor: Colors.grey[400],
+                        primary: Color(0xFF107C8F),
+                        onPrimary: Color.fromARGB(255, 0, 0, 0),
+                        shadowColor: Color.fromARGB(255, 0, 0, 0),
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -102,9 +107,9 @@ class _PickimageState extends State<Pick_image> {
                     padding: const EdgeInsets.only(top: 10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 40, 131, 122),
-                        onPrimary: Colors.grey,
-                        shadowColor: Colors.grey[400],
+                        primary: Color(0xFF107C8F),
+                        onPrimary: Color.fromARGB(255, 0, 0, 0),
+                        shadowColor: Color.fromARGB(255, 0, 0, 0),
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0)),
@@ -142,32 +147,6 @@ class _PickimageState extends State<Pick_image> {
         ))));
   }
 
-  pegarImagemGaleria() async {
-    final PickedFile? imagemTemporaria =
-        await imagePicker.getImage(source: ImageSource.gallery);
-
-    if (imagemTemporaria != null) {
-      setState(() {
-        imagemSelecionada = File(imagemTemporaria.path);
-        processImageLabels();
-        speakText();
-      });
-    }
-  }
-
-  pegarImagemCamera() async {
-    final PickedFile? imagemTemporaria =
-        await imagePicker.getImage(source: ImageSource.camera);
-
-    if (imagemTemporaria != null) {
-      setState(() {
-        imagemSelecionada = File(imagemTemporaria.path);
-        processImageLabels();
-        speakText();
-      });
-    }
-  }
-
   processImageLabels() async {
     GoogleVisionImage myImage = GoogleVisionImage.fromFile(imagemSelecionada!);
     ImageLabeler labeler = GoogleVision.instance
@@ -182,7 +161,32 @@ class _PickimageState extends State<Pick_image> {
             imageLabel.confidence.toString() +
             "\n";
       });
+      speakText();
       break;
+    }
+  }
+
+  pegarImagemGaleria() async {
+    final PickedFile? imagemTemporaria =
+        await imagePicker.getImage(source: ImageSource.gallery);
+
+    if (imagemTemporaria != null) {
+      setState(() {
+        imagemSelecionada = File(imagemTemporaria.path);
+        processImageLabels();
+      });
+    }
+  }
+
+  pegarImagemCamera() async {
+    final PickedFile? imagemTemporaria =
+        await imagePicker.getImage(source: ImageSource.camera);
+
+    if (imagemTemporaria != null) {
+      setState(() {
+        imagemSelecionada = File(imagemTemporaria.path);
+        processImageLabels();
+      });
     }
   }
 }

@@ -53,6 +53,9 @@ dependencies:
   #Firebase Core
   firebase_core: ^1.16.0
 
+  #Translator
+  translator: ^0.1.7
+
   
  
 
