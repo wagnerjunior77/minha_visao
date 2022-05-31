@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:minhavisao/pick_image.dart';
 import 'package:minhavisao/pick_text.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:perfect_volume_control/perfect_volume_control.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,10 +13,30 @@ class HomePage extends StatelessWidget {
 
     speakText(String text) async {
       await flutterTts.setLanguage("pt-BR");
-      await flutterTts.setPitch(1.0);
+      await flutterTts.setPitch(1.1);
       await flutterTts.speak(text);
     }
 
+    speakText(
+        'Bem-Vindo a tela inicial do Minha Visão, temos dois botões nessa tela, o primeiro levará para a tela de Identificação de Imagem e o segundo para a de Identificar Texto.');
+
+    double currentvol = 0.5;
+    PerfectVolumeControl.stream.listen((volume) {
+      if (volume != currentvol) {
+        //only execute button type check once time
+
+        if (volume > currentvol) {
+          //if new volume is greater, then it up button
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const Pick_image()));
+        } else {
+          //else it is down button
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const Pick_text()));
+        }
+      }
+      currentvol = volume;
+    });
     return Scaffold(
       backgroundColor: Color.fromARGB(181, 0, 0, 0),
       body: Column(
@@ -108,6 +129,8 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
+                    speakText(
+                        'identificar imagem: na parte inferior, temos dois botões, no botão esquerdo é possível acessar a galeria do dispositivo, e no botão direito a câmera');
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Pick_image()));
                   },
@@ -159,6 +182,8 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
+                    speakText(
+                        'identificar texto: na parte inferior, temos dois botões, no botão esquerdo é possível acessar a galeria do dispositivo, e no botão direito a câmera');
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const Pick_text()));
                   },

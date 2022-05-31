@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:translator/translator.dart';
 import 'dart:io';
 
 class Pick_image extends StatefulWidget {
@@ -19,17 +20,25 @@ class _PickimageState extends State<Pick_image> {
     ImageLabelerOptions(confidenceThreshold: 0.9),
   );
 
+  final translator = GoogleTranslator();
+
   static var result;
   speakText() async {
     await flutterTts.setLanguage("pt-BR");
     await flutterTts.setPitch(1.0);
-    await flutterTts.speak(result);
+    var translation = await translator.translate(result, to: 'pt');
+    await flutterTts.speak(translation.toString());
+  }
+
+  speakText2(text) async {
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(text);
   }
 
   get child => null;
   @override
   Widget build(BuildContext context) {
-    var white;
     return Scaffold(
         backgroundColor: Color.fromARGB(181, 0, 0, 0),
         appBar: AppBar(
@@ -61,7 +70,9 @@ class _PickimageState extends State<Pick_image> {
                     : Text(
                         result,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 50),
                       )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -155,11 +166,7 @@ class _PickimageState extends State<Pick_image> {
     result = "";
     for (ImageLabel imageLabel in _imageLabels) {
       setState(() {
-        result = result +
-            imageLabel.text +
-            ":" +
-            imageLabel.confidence.toString() +
-            "\n";
+        result = result + imageLabel.text + "\n";
       });
       speakText();
       break;

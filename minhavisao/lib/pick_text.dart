@@ -26,6 +26,12 @@ class _PicktextState extends State<Pick_text> {
     await flutterTts.speak(translation.toString());
   }
 
+  speakText2(text) async {
+    await flutterTts.setLanguage("pt-BR");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(text);
+  }
+
   translateScannedText() async {
     var translation = await translator.translate(scannedText, to: 'pt');
 
