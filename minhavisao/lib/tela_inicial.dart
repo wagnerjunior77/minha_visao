@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     speakText(
         'Bem-Vindo a tela inicial do Minha Visão, temos dois botões nessa tela, o primeiro levará para a tela de Identificação de Imagem e o segundo para a de Identificar Texto.');
 
-    double currentvol = 0.5;
+    /*double currentvol = 0.5;
     PerfectVolumeControl.stream.listen((volume) {
       if (volume != currentvol) {
         //only execute button type check once time
@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
         }
       }
       currentvol = volume;
-    });
+    });*/
     return Scaffold(
       backgroundColor: Color.fromARGB(181, 0, 0, 0),
       body: Column(

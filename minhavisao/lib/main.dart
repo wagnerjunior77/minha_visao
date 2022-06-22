@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:minhavisao/tela_inicial.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 

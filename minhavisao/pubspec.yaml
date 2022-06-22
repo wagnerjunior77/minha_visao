@@ -58,6 +58,12 @@ dependencies:
 
   #Buttons
   perfect_volume_control: ^1.0.5
+  change_app_package_name: ^1.1.0
+ 
+
+  
+
+  
 
   
  
@@ -124,3 +130,4 @@ flutter:
   assets:
     - images/icone_app.png
     - images/icone2_app.png
+   

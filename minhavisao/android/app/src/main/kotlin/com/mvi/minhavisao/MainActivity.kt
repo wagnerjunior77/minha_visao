@@ -1,4 +1,4 @@
-package com.example.minhavisao
+package com.mvi.minhavisao
 
 import io.flutter.embedding.android.FlutterActivity
 
