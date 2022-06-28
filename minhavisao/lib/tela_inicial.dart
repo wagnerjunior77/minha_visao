@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:minhavisao/pick_image.dart';
 import 'package:minhavisao/pick_text.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:minhavisao/settings_page.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 
 class HomePage extends StatelessWidget {
@@ -59,10 +60,25 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      padding: const EdgeInsets.only(top: 30),
+                      icon: const Icon(
+                        Icons.settings,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      iconSize: 45,
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SettingsPage()));
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 50, left: 15.0),
                     child: SizedBox(
                       width: 128,
                       height: 128,
@@ -71,7 +87,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(top: 5, left: 15.0),
                     child: const Text(
                       "Minha Visão",
                       style: TextStyle(

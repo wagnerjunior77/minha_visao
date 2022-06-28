@@ -164,12 +164,19 @@ class _PickimageState extends State<Pick_image> {
         .imageLabeler(const ImageLabelerOptions(confidenceThreshold: 0.9));
     var _imageLabels = await labeler.processImage(myImage);
     result = "";
+    var counter = 0;
     for (ImageLabel imageLabel in _imageLabels) {
+      counter += 1;
       setState(() {
         result = result + imageLabel.text + "\n";
       });
+
       speakText();
-      break;
+      if (counter == 3) {
+        counter = 0;
+
+        break;
+      }
     }
   }
 
