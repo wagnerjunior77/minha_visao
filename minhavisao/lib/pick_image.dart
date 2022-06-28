@@ -172,7 +172,7 @@ class _PickimageState extends State<Pick_image> {
       });
 
       speakText();
-      if (counter == 3) {
+      if (counter == 2) {
         counter = 0;
 
         break;

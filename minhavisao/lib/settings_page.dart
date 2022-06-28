@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
+import 'package:meta/meta.dart';
 
 class SettingsPage extends StatefulWidget {
   static const String id = 'sample1';
@@ -18,15 +20,57 @@ class _SettingsPage extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(181, 0, 0, 0),
-      appBar: AppBar(
-        title:
-            const Text('Configurações', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color(0xFF107C8F),
-      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Column(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.topCenter,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.0,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 45, 93, 119),
+                      Color(0xFF107C8F),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(90),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 50, left: 15.0),
+                      child: SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Image.asset('images/icone2_app.png'),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(top: 5, left: 15.0),
+                      child: const Text(
+                        "Minha Visão",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           SwitchListTile(
+            contentPadding: EdgeInsets.only(top: 70, left: 46, right: 26),
             activeColor: Colors.blue,
             inactiveThumbColor: Colors.white,
             inactiveTrackColor: Colors.blueGrey,
@@ -41,6 +85,7 @@ class _SettingsPage extends State<SettingsPage> {
             secondary: const Icon(
               Icons.campaign_sharp,
               color: Color(0xFFFFFFFF),
+              size: 30,
             ),
             value: _toggled1,
             onChanged: (value) {
@@ -48,6 +93,7 @@ class _SettingsPage extends State<SettingsPage> {
             },
           ),
           SwitchListTile(
+            contentPadding: EdgeInsets.only(top: 20, left: 46, right: 26),
             activeColor: Colors.blue,
             inactiveThumbColor: Colors.white,
             inactiveTrackColor: Colors.blueGrey,
@@ -62,6 +108,7 @@ class _SettingsPage extends State<SettingsPage> {
             secondary: const Icon(
               Icons.app_shortcut_outlined,
               color: Color(0xFFFFFFFF),
+              size: 30,
             ),
             value: _toggled2,
             onChanged: (value) {
@@ -69,6 +116,7 @@ class _SettingsPage extends State<SettingsPage> {
             },
           ),
           SwitchListTile(
+            contentPadding: EdgeInsets.only(top: 20, left: 46, right: 26),
             activeColor: Colors.blue,
             inactiveThumbColor: Colors.white,
             inactiveTrackColor: Colors.blueGrey,
@@ -83,6 +131,7 @@ class _SettingsPage extends State<SettingsPage> {
             secondary: const Icon(
               Icons.translate_outlined,
               color: Color(0xFFFFFFFF),
+              size: 30,
             ), // Point to Check
             value: _toggled3,
             onChanged: (value) {
@@ -90,9 +139,10 @@ class _SettingsPage extends State<SettingsPage> {
             },
           ),
           SizedBox(
-            height: 50,
+            height: 20,
           ),
           SwitchListTile(
+            contentPadding: EdgeInsets.only(top: 20, left: 46, right: 26),
             activeColor: Colors.blue,
             inactiveThumbColor: Colors.white,
             inactiveTrackColor: Colors.blueGrey,
